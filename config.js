@@ -1,11 +1,11 @@
 "use strict";
 
 module.exports = {
-  url: "https://lumen.netlify.com",
+  url: "https://min-ki.github.io",
   pathPrefix: "/",
   title: "DEV LIKE DEVIL",
   subtitle:
-    "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
+    "저는 0년차 🐥 개발자 입니다. 🚀 로켓단이 되기 위해서 매우 열심히 노력중입니다. 🚀",
   copyright: "© All rights reserved.",
   disqusShortname: "",
   postsPerPage: 4,
@@ -24,22 +24,26 @@ module.exports = {
       label: "Contact me",
       path: "/pages/contacts",
     },
+    {
+      label: "Resume",
+      path: "/pages/resume",
+    },
   ],
   author: {
     name: "mingi pak",
     photo: "/photo.jpg",
     bio:
-      "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
+      "저는 0년차 🐥 개발자 입니다. 🚀 로켓단이 되기 위해서 매우 열심히 노력중입니다. 🚀",
     contacts: {
       email: "",
-      facebook: "#",
+      facebook: "minki5217",
       telegram: "#",
       twitter: "#",
-      github: "#",
+      github: "min-ki",
       rss: "",
       vkontakte: "",
       linkedin: "#",
-      instagram: "#",
+      instagram: "minki_2271",
       line: "",
       gitlab: "",
       weibo: "",
