@@ -3,9 +3,8 @@
 module.exports = {
   url: "https://min-ki.github.io",
   pathPrefix: "/",
-  title: "DEV LIKE DEVIL",
-  subtitle:
-    "저는 0년차 🐥 개발자 입니다. 🚀 로켓단이 되기 위해서 매우 열심히 노력중입니다. 🚀",
+  title: "DEVLOG",
+  subtitle: "Life is short.",
   copyright: "© All rights reserved.",
   disqusShortname: "",
   postsPerPage: 4,
@@ -31,9 +30,9 @@ module.exports = {
   ],
   author: {
     name: "mingi pak",
-    photo: "/photo.jpg",
-    bio:
-      "저는 0년차 🐥 개발자 입니다. 🚀 로켓단이 되기 위해서 매우 열심히 노력중입니다. 🚀",
+    photo:
+      "https://avatars2.githubusercontent.com/u/36180982?s=460&u=0a1d93b810b4c70be4e793bc028d55c4af45f84b&v=4",
+    bio: "Life is short.",
     contacts: {
       email: "",
       facebook: "minki5217",
