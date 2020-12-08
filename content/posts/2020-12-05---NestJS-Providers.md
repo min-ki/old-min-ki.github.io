@@ -1,15 +1,15 @@
 ---
-title: "NestJS - Proviers"
-date: "2020-12-05T22:00:00.000Z"
-template: "post"
+title: 'NestJS - Providers'
+date: '2020-12-05T22:00:00.000Z'
+template: 'post'
 draft: false
-slug: "nestjs-providers"
-category: "TIL"
+slug: 'nestjs-providers'
+category: 'TIL'
 tags:
-  - "NestJS"
-  - "Framework"
-  - "Proviers"
-description: "NestJS Proviers"
+  - 'NestJS'
+  - 'Framework'
+  - 'Proviers'
+description: 'NestJS 공식문서 Overview - Providers(제공자)를 정리한 내용입니다.'
 ---
 
 ## Providers
@@ -24,8 +24,8 @@ description: "NestJS Proviers"
 ### Service
 
 ```ts
-import { Injectable } from "@nestjs/common";
-import { Cat } from "./interfaces/cat.interface";
+import { Injectable } from '@nestjs/common';
+import { Cat } from './interfaces/cat.interface';
 
 @Injectable()
 export class CatsService {
@@ -81,9 +81,9 @@ constructor(private catsService: CatsService) {}
 
 ### Scopes
 
-- Providers는 어플리케이션의 라이프사이클과 동기화된 라이프타임을 가지고 있다.
-- 어플리케이션이 시작된다면, 모든 providers들은 인스턴스화 되어야 한다.
-- 그리고, 어플리케이션이 종료되면은 모든 providers이 사라진다.
+- Providers는 애플리케이션의 라이프사이클과 동기화된 라이프타임을 가지고 있다.
+- 애플리케이션이 시작된다면, 모든 providers들은 인스턴스화 되어야 한다.
+- 그리고, 애플리케이션이 종료되면은 모든 providers이 사라진다.
 - 하지만, 요청 별로 인스턴스를 만들 수 도 있다. ([https://docs.nestjs.com/fundamentals/injection-scopes](https://docs.nestjs.com/fundamentals/injection-scopes))
 
 ### Custom Providers
@@ -99,11 +99,11 @@ constructor(private catsService: CatsService) {}
 - providers가 optinal하다는 것을 나타내려면 `@Optinal()` 데코레이터를 사용한다.
 
 ```ts
-import { Injectable, Optional, Inject } from "@nestjs/common";
+import { Injectable, Optional, Inject } from '@nestjs/common';
 
 @Injectable()
 export class HttpService<T> {
-  constructor(@Optinal() @Inject("HTTP_OPTIONS") private httpClient: T) {}
+  constructor(@Optinal() @Inject('HTTP_OPTIONS') private httpClient: T) {}
 }
 ```
 
@@ -113,11 +113,11 @@ export class HttpService<T> {
 - 예를들어, 최상위 클래스가 한개 혹은 여러개의 providers에 의존한다면, 그것들을 사용하기위해서 서브클래스의 생성자로부터 매번 super() 메서드를 호출해야 하는데, 이것을 피하기위해서 property level에서 `@Inject()` 데코레이터를 사용할 수 있다.
 
 ```ts
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
 export class HttpService<T> {
-  @Inject("HTTP_OPTIONS")
+  @Inject('HTTP_OPTIONS')
   private readonly httpClient: T;
 }
 ```

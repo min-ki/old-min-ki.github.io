@@ -1,20 +1,21 @@
 ---
-title: "NestJS - Controllers"
-date: "2020-12-04T22:00:00.000Z"
-template: "post"
+title: 'NestJS - Controllers'
+date: '2020-12-04T22:00:00.000Z'
+template: 'post'
 draft: false
-slug: "nestjs-controllers"
-category: "TIL"
+slug: 'nestjs-controllers'
+category: 'TIL'
 tags:
-  - "NestJS"
-  - "Framework"
-description: "NestJS Controller"
+  - 'NestJS'
+  - 'Framework'
+  - 'Controller'
+description: 'NestJS 공식문서 Overview - Controller를 정리한 내용입니다.'
 ---
 
 ## Controller
 
 - 클라이언트에서 보내는 요청을 처리하고 클라이언트에게 요청을 반환하는 책임을 가진 역할을 담당하는 것
-- 컨트롤러의 목적은 **어플리케이션을 위한 특정한 요청을 받기 위한 것**
+- 컨트롤러의 목적은 **애플리케이션을 위한 특정한 요청을 받기 위한 것**
 - 라우팅 메커니즘은 컨트롤러가 어떠한 요청을 처리할 지 제어하는 것
 - 각 컨트롤러는 하나 이상의 경로를 가지는 경우가 많고, 각기 다른 경로(라우터)들은 다른 액션(비지니스 로직)을 수행함
 - NestJS에서 컨트롤러를 생성하기 위해서는, **클래스**와 **데코레이터**를 사용한다.
@@ -27,13 +28,13 @@ description: "NestJS Controller"
 - path prefix를 사용하면 연관이 있는 라우터들을 쉽게 그룹으로 묶을 수 있고, 중복되는 코드를 줄일 수 있음
 
 ```tsx
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get } from '@nestjs/common';
 
-@Controller("cats")
+@Controller('cats')
 export class CatsController {
   @Get()
   findAll(): string {
-    return "This action returns all cats";
+    return 'This action returns all cats';
   }
 }
 ```
@@ -81,14 +82,14 @@ export class CatsController {
 핸들러들은 종종 클라이언트 요청에 대한 상세한 정보에 접근할 필요가 있다. Nest 프레임워크는 플랫폼 아래서 **request object**에 접근하는 방법을 제공한다. Nest 프레임워크에서는 `@Req()` 데코레이터를 핸들러 메서드의 시그니쳐에 추가함으로써 요청 객체를 Nest 프레임워크가 주입 할 수 있도록 지시할 수 있다.
 
 ```tsx
-import { Controller, Get, Req } from "@nestjs/common";
-import { Request } from "express";
+import { Controller, Get, Req } from '@nestjs/common';
+import { Request } from 'express';
 
-@Controller("cats")
+@Controller('cats')
 export class CatsController {
   @Get()
   findAll(@Req() request: Request): string {
-    return "This action returns all cats";
+    return 'This action returns all cats';
   }
 }
 ```
