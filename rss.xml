@@ -1,4 +1,155 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MINGI DEVLOG]]></title><description><![CDATA[Information + knowledge = 🔥]]></description><link>https://min-ki.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 08 Dec 2020 15:51:25 GMT</lastBuildDate><item><title><![CDATA[NestJS - Middleware]]></title><description><![CDATA[NestJS 공식문서 Overview - Middleware를 정리한 내용입니다.]]></description><link>https://min-ki.github.io/posts/nestjs-middleware</link><guid isPermaLink="false">https://min-ki.github.io/posts/nestjs-middleware</guid><pubDate>Tue, 08 Dec 2020 22:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;middleware&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#middleware&quot; aria-label=&quot;middleware permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;middleware&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[MINGI DEVLOG]]></title><description><![CDATA[Information + knowledge = 🔥]]></description><link>https://min-ki.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 09 Dec 2020 15:46:24 GMT</lastBuildDate><item><title><![CDATA[NestJS - Exception filters]]></title><description><![CDATA[NestJS 공식문서 Overview - Exception-filters를 정리한 내용입니다.]]></description><link>https://min-ki.github.io/posts/nestjs-exception-filters</link><guid isPermaLink="false">https://min-ki.github.io/posts/nestjs-exception-filters</guid><pubDate>Thu, 10 Dec 2020 22:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;exception-filters&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#exception-filters&quot; aria-label=&quot;exception filters permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Exception filters&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Nest 프레임워크는 애플리케이션 전체에서 처리되지 않은 모든 예외 처리를 담당하는 내장된 예외 계층이 제공된다.&lt;/li&gt;
+&lt;li&gt;애플리케이션 단에서 코드를 통해 예외처리를 핸들링 하지 않을 경우, &lt;strong&gt;예외 계층(excetions layer)을 통해서&lt;/strong&gt; 자동적으로 사용자 친화적인 응답을 보내준다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 833px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5bab0ab2c7f9bf657d12c5e16277d66d/5205c/Filter_1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 57.08333333333333%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAABDklEQVQoz5VTPW/CMBD1X+EfdK6Yu/K/OndkYqg6dWFAQl1ZWqlCQqhDpy5UhNDYxLFNcPJquyTkwwnqSSfHfrp39+4uBD2W53nt9L03MVIFfF7gOsuw3TOkJ42uGEdYz5CfvV2JJWSJAuUCUqXeCu036QIyQ6C1Lt+ZIQqiA34OCWgsGi24JC8JKVfY7CLj1FVSmCU+GWIrVR7TMnnIOD6/NvgOKaJYImsSJkYG49KAiRO9eH3H/cO4RlxVw8URoanYeixUVw9twF/gePKI27sRFm9LCKlag/CshJPunXJR/mr9gcHNEE/PU3ev9rQ15fNQSd/+WYLZ/AVBsOvcu6aR/y7zNSPX/hCfzD77Be6CXO726N5pAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/static/5bab0ab2c7f9bf657d12c5e16277d66d/8ac56/Filter_1.webp 240w,
+/static/5bab0ab2c7f9bf657d12c5e16277d66d/d3be9/Filter_1.webp 480w,
+/static/5bab0ab2c7f9bf657d12c5e16277d66d/184c4/Filter_1.webp 833w&quot;
+          sizes=&quot;(max-width: 833px) 100vw, 833px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/static/5bab0ab2c7f9bf657d12c5e16277d66d/8ff5a/Filter_1.png 240w,
+/static/5bab0ab2c7f9bf657d12c5e16277d66d/e85cb/Filter_1.png 480w,
+/static/5bab0ab2c7f9bf657d12c5e16277d66d/5205c/Filter_1.png 833w&quot;
+          sizes=&quot;(max-width: 833px) 100vw, 833px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/static/5bab0ab2c7f9bf657d12c5e16277d66d/5205c/Filter_1.png&quot;
+          alt=&quot;filter-overview&quot;
+          title=&quot;filter-overview&quot;
+          loading=&quot;lazy&quot;
+          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;상자 밖에서, 이러한 행동들은 HttpException 혹은 HttpException의 서브클래스 타입의 예외를 처리하는 내장된 &lt;strong&gt;글로벌 예외 필터(global exception filter)&lt;/strong&gt;에 의해서 수행된다.&lt;/li&gt;
+&lt;li&gt;예외를 인식할 수 없는 경우(HttpException 이 아니거나 혹은 HttpException 으로부터 상속받은 클래스가 아닌 경우), 내장된 예외 필터는 다음과 같은 기본 JSON 응답을 생성한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;statusCode&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Internal server error&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;throwing-standard-exceptions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#throwing-standard-exceptions&quot; aria-label=&quot;throwing standard exceptions permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Throwing standard exceptions&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Nest 프레임워크는 &lt;strong&gt;@nestjs/common&lt;/strong&gt; 패키지로부터 내장된 &lt;strong&gt;HttpException&lt;/strong&gt; 클래스를 제공한다.&lt;/li&gt;
+&lt;li&gt;전형적인 HTTP REST/GraphQL API 기반의 애플리케이션들의 경우, 특정 오류 조건이 발생할 때 표준 HTTP 응답 객체를 전송하는 것이 최선의 방법이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// cats.controller.ts&lt;/span&gt;
+
+@&lt;span class=&quot;token function&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token comment&quot;&gt;// HttpStatus enum을 사용 -&gt; @nestjs/common 패키지의 helper enum&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;HttpException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Forbidden&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;FORBIDDEN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;위의 경로로 요청을 보낸다면, 다음과 같은 응답을 볼 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;statusCode&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;403&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Forbidden&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;HttpException 클래스의 생성자는 응답(response)를 결정하기 위한 두 개의 필수 인자를 취한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;response 인자는 &lt;strong&gt;JSON response body&lt;/strong&gt;를 정의한다. (string or object)&lt;/li&gt;
+&lt;li&gt;status 인자는 HTTP &lt;strong&gt;status code&lt;/strong&gt;를 정의한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;기본적으로 JSON response body는 두 개의 프로퍼티를 포함한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;statusCode: status 인자에 제공된 HTTP status code를 기본으로 설정&lt;/li&gt;
+&lt;li&gt;message: status에 기초한 HTTP 에러의 짧은 설명&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;JSON response body의 메세지 부분을 단지 오버라이딩 하고싶다면 &lt;strong&gt;HttpException(“error message”, HttpStatus.FORBIDDEN)&lt;/strong&gt; 와 같이 첫 번째 인자에 문자열만 넘겨주면 된다.&lt;/li&gt;
+&lt;li&gt;전체 JSON response body를 오버라이딩 하고싶다면, response 객체를 전달해주면 된다.&lt;/li&gt;
+&lt;li&gt;Nest는 전달해준 response 객체를 직렬화하고, 이것을 JSON response body로 반환해준다.&lt;/li&gt;
+&lt;li&gt;두 번째 인자인 status는 유효한 HTTP status code가 되야한다.&lt;/li&gt;
+&lt;li&gt;Best practice는 &lt;strong&gt;@nestjs/common의 HttpStatus enum&lt;/strong&gt;을 사용하는 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// cats.controller.ts&lt;/span&gt;
+
+@&lt;span class=&quot;token function&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;HttpException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		status&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;FORBIDDEN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// HttpStatus enum&lt;/span&gt;
+		error&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;This is a custom message&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;FORBIDDEN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// HttpStatus enum&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// 위의 에러는 다음과 같은 response 객체를 반환한다.&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;403&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// FORBIDDEN&lt;/span&gt;
+	&lt;span class=&quot;token string&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;This is a custom message&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;custom-exceptions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#custom-exceptions&quot; aria-label=&quot;custom exceptions permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Custom exceptions&lt;/h3&gt;
+&lt;p&gt;우리는 애플리케이션을 작업하면서 많은 경우에 커스텀한 예외를 작성할 필요가 별로 없을 것이다. 그러므로, 우리는 단지 내장된 Nest HTTP exception을 사용하면 된다.&lt;/p&gt;
+&lt;p&gt;만약에 커스텀한 예외를 만들어야할 필요가 있다면 우리는 HttpException class 로부터 상속받은 커스텀한 예외 계층을 가지면 된다.&lt;/p&gt;
+&lt;p&gt;이러한 이러한 접근 방식을 통해서, Nest 프레임워크는 커스텀한 예외들을 인식하고, 자동으로 에러 응답 객체를 처리해줄것이다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// forbidden.exception.ts&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ForbiddenException&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;HttpExcetion&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Forbidden&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;FORBIDDEN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;위의 HttpException으로부터 확장된 ForbiddenException 예외 클래스는 내장된 예외 핸들러와 잘 작동하므로 findAll() 메서드 내부에서 사용이 가능하다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ts&quot;&gt;&lt;pre class=&quot;language-ts&quot;&gt;&lt;code class=&quot;language-ts&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// cats.controller.ts&lt;/span&gt;
+
+@&lt;span class=&quot;token function&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ForbiddenException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;BuddenException은 기본 HttpException을 확장하므로 내장된 예외 핸들러와 원활하게 작동하므로 findAll() 방식 내에서 사용할 수 있다.&lt;/p&gt;
+&lt;h3 id=&quot;built-in-http-exceptions&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#built-in-http-exceptions&quot; aria-label=&quot;built in http exceptions permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Built-in HTTP exceptions&lt;/h3&gt;
+&lt;p&gt;Nest 프레임워크는 HttpException로부터 상속받은 표준 예외 들의 집합을 제공한다. 이것들은 @nestjs/common 패키지를 통해 사용 가능하며, 대부분의 공통 HTTP 예외들을 나타낸다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;BadRequestException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;UnauthorizedException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;NotFoundException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ForbiddenException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;NotAcceptableException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;RequestTimeoutException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ConflictException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;GoneException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;HttpVersionNotSupportedException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;PayloadTooLargeException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;UnsupportedMediaTypeException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;UnprocessableEntityException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;InternalServerErrorException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;NotImplementedException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ImATeapotException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;MethodNotAllowedException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;BadGatewayException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ServiceUnavailableException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;GatewayTimeoutException&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;PreconditionFailedException&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[NestJS - Middleware]]></title><description><![CDATA[NestJS 공식문서 Overview - Middleware를 정리한 내용입니다.]]></description><link>https://min-ki.github.io/posts/nestjs-middleware</link><guid isPermaLink="false">https://min-ki.github.io/posts/nestjs-middleware</guid><pubDate>Tue, 08 Dec 2020 22:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;middleware&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#middleware&quot; aria-label=&quot;middleware permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;middleware&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;미들웨어란 route handler 앞에서 호출되는 함수이다.&lt;/li&gt;
 &lt;li&gt;미들웨어 함수는 애플리케이션의 요청-응답 주기 안에서 &lt;code class=&quot;language-text&quot;&gt;request&lt;/code&gt; 와 &lt;code class=&quot;language-text&quot;&gt;response&lt;/code&gt; 객체에 접근할 수 있고, &lt;code class=&quot;language-text&quot;&gt;next()&lt;/code&gt; 미들웨어 함수에 접근 가능하다.&lt;/li&gt;
