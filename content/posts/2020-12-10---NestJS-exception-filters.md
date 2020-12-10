@@ -142,3 +142,140 @@ Nest 프레임워크는 HttpException로부터 상속받은 표준 예외 들의
 - `ServiceUnavailableException`
 - `GatewayTimeoutException`
 - `PreconditionFailedException`
+
+### Exception filters
+
+내장된 예외 필터는 자동적으로 대부분의 케이스들을 처리할 수 있다. 하지만 가끔은 예외 계층에 대한 완전한 제어를 하고 싶을 경우가 있다. 예를들어, 로깅을 추가하거나 외부 요인에 기반한 다른 JSON 스키마를 사용하고싶을 수 있다. 이를 위해서, 예외 필터(exception filter)는 위의 예시를 든 경우들을 위한 목적으로 디자인 되었다.
+
+```ts
+// http-exception.filter.ts
+
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException
+} from '@nestjs/common';
+import { Request, Resposne } from 'express';
+
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+    const status = exception.getStatus();
+
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url
+    });
+  }
+}
+```
+
+HttpException 클래스의 인스턴스인 예외를 캐치하고 이에 대한 사용자 정의 응답 로직을 구현하는 것을 담당하는 예외 필터를 만들기 위해서는 기본 플랫폼 요청 및 응답 객체에 접근 해야 한다.
+
+- 모든 예외 필터들은 **ExceptionFilter<T>** 인터페이스의 제네릭으로 구현되어야한다.
+- 위를 위해서 catch(exception: T, host: ArgumentsHost) 메소드를 구현해야한다.
+- T는 예외의 타입을 나타낸다.
+
+**@Catch(HttpException)** 데코레이터는 Nest 프레임워크에게 구현하고자 하는 예외 필터가 HttpException 유형의 예외를 찾고 있다는 것을 알려, 예외 필터에 필요한 메타데이터를 바인딩한다.
+
+@Catch() 데코레이터는 단일 매개변수 또는 쉼표로 구분된 목록을 사용할 수 있다. 이를 통해 여러 유형의 예외에 대한 필터를 동시에 설정할 수 있다. ex) @Catch(Exception1, Exception2)
+
+### Arguments host
+
+- catch() 메소드의 파라미터들에 대해서 알아본다.
+- exception 매개변수는 현재 통과되어지고 있는 예외 객체이다.
+- host 매개변수는 ArgumentsHost 객체이다.
+- ArgumentsHost는 강력한 유틸리티 객체이다. (더 자세한 내용은 execution context chapter 에서 알아본다.)
+
+### Binding filters
+
+Controller에 예외 필터를 적용하기 위해서는 @nestjs/common 패키지의 **@UseFilters()** 데코레이터를 사용하면 된다.
+
+@Catch() 데코레이터와 유사하게, @UseFilters() 데코레이터는 하나의 필터 인스턴스를 인자로 취한다.
+
+아래의 코드에서는 HttpExceptionFilter의 인스턴스를 생성해서 전달하였다.
+
+```ts
+// cats.controller.ts
+
+@Post()
+@UseFilters(new HttpExceptionFilter())
+async create(@Body() createCatDto: CreateCatDto) {
+	throw new ForbiddenException();
+}
+```
+
+또한, 인스턴스 대신에 클래스를 전달함으로써 의존성 주입을 활성화 할 수 있다.
+
+```ts
+// cats.controller.ts
+
+@Post()
+@UseFilters(HttpExceptionFilter) // 클래스를 전달
+async create(@Body() createCatDto: CreateCatDto) {
+	throw new ForbiddenException();
+}
+```
+
+가능하다면 인스턴스 대신에 클래스를 전달함으로써 필터를 적용하는 방식을 사용하는 것이 좋다. 왜냐하면, Nest에서 전체 모듈에서 **동일한 클래스에 대해서 하나의 인스턴스만 사용하므로** **메모리 사용을 줄일 수 있다**.
+
+위의 예제에서, HttpExceptionFilter는 오직 method-scoped로써 create() 라우트 핸들러에만 적용되었다.
+
+예외필터(Exception filters)들은 다른 레벨의 범위(scope)를 가질 수 있다.
+
+- method-scoped
+- controller-scoped
+- global-scoped
+
+ex) controller scoped
+
+아래의 코드는 CatsController 내부의 모든 라우트 핸들러에 HttpExceptionFilter를 적용하는 코드이다.
+
+```ts
+// cats.controller.ts
+
+@UseFillters(new HttpExceptionFilter())
+export class CatsController {}
+```
+
+ex) global-scoped
+
+- useGlobalFilters() 메서드는 게이트웨이 혹은 하이브리드 애플리케이션에 대한 필터를 설정하지 않는다.
+- global-scoped filters는 모든 컨트롤러와 모든 라우트 핸들러 전체 애플리케이션에서 사용된다.
+
+```ts
+// main.ts
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new HttpExceptionFilter());
+  await app.listen(3000);
+}
+
+boostrap();
+```
+
+- 의존성 주입의 관점에서, 어떠한 모듈 외부에서 등록한 글로벌 필터는 어떠한 모듈의 컨텍스트 외부에서 수행되기 때문에 의존성을 주입할 수 없다.
+- 이러한 의존성 주입 문제를 해결하기 위해 다음과 같은 방법을 사용하여 어떤 모듈에서든 직접 전역 범위 필터를 등록할 수 있다.
+
+```ts
+// app.module.ts
+
+import { Module } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
+
+@Module({
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter
+    }
+  ]
+})
+export class AppModule {}
+```
