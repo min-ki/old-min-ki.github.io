@@ -96,8 +96,8 @@
         <img
           class="gatsby-resp-image-image"
           src="/static/5bab0ab2c7f9bf657d12c5e16277d66d/5205c/Filter_1.png"
-          alt="filter-overview"
-          title="filter-overview"
+          alt="filter-"
+          title="filter-"
           loading="lazy"
           style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
         />
@@ -209,4 +209,111 @@
 <li><code class="language-text">ServiceUnavailableException</code></li>
 <li><code class="language-text">GatewayTimeoutException</code></li>
 <li><code class="language-text">PreconditionFailedException</code></li>
-</ul></div></div></div><div class="Post-module--post__footer--3WzWU"><div><p class="Meta-module--meta__date--29eD7">Published <!-- -->11 Dec 2020</p></div><div class="Tags-module--tags--1L_ct"><ul class="Tags-module--tags__list--91FqN"><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tag/nest-js/">NestJS</a></li><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tag/framework/">Framework</a></li><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tag/exception-filters/">exception-filters</a></li></ul></div><div class="Author-module--author--2Yefr"><p>Information + knowledge = 🔥<a class="Author-module--author__bio-twitter--n-O9n" href="https://www.twitter.com/#" rel="noopener noreferrer" target="_blank"><strong>mingi pak</strong> on Twitter</a></p></div></div><div class="Post-module--post__comments--25y6I"></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/nestjs-exception-filters";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-ffdf9f8f891933d5c936.js"],"app":["/app-7c430e775da860993f91.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-78167c4fde7507dfeaa5.js"],"component---src-templates-categories-list-template-js":["/component---src-templates-categories-list-template-js-c284e1532732377ecf23.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-7d30c572cfd5600c2141.js"],"component---src-templates-index-template-js":["/component---src-templates-index-template-js-bb2148d7459bb65b64a4.js"],"component---src-templates-not-found-template-js":["/component---src-templates-not-found-template-js-ac3827766eca47f69dbc.js"],"component---src-templates-page-template-js":["/component---src-templates-page-template-js-753825f331ca7fca30ec.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-60955cc60eff050f552a.js"],"component---src-templates-tag-template-js":["/component---src-templates-tag-template-js-1017cd2fbd4fa190eba9.js"],"component---src-templates-tags-list-template-js":["/component---src-templates-tags-list-template-js-10861f89ff7369335573.js"]};/*]]>*/</script><script src="/polyfill-ffdf9f8f891933d5c936.js" nomodule=""></script><script src="/component---src-templates-post-template-js-60955cc60eff050f552a.js" async=""></script><script src="/643651a62fb35a9bb4f20061cb1f214a352d7976-921c08de707572e0b904.js" async=""></script><script src="/cd95ea5cbd2c605f26db819f07999610c9ff4310-c0c9a4570aa7372f03a5.js" async=""></script><script src="/styles-083a06cb5740baaf347d.js" async=""></script><script src="/app-7c430e775da860993f91.js" async=""></script><script src="/532a2f07-0ad879e15da7c2514814.js" async=""></script><script src="/framework-acc06bf067a5be254929.js" async=""></script><script src="/webpack-runtime-c28255939d9c8a615cf8.js" async=""></script></body></html>
+</ul>
+<h3 id="exception-filters-1" style="position:relative;"><a href="#exception-filters-1" aria-label="exception filters 1 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception filters</h3>
+<p>내장된 예외 필터는 자동적으로 대부분의 케이스들을 처리할 수 있다. 하지만 가끔은 예외 계층에 대한 완전한 제어를 하고 싶을 경우가 있다. 예를들어, 로깅을 추가하거나 외부 요인에 기반한 다른 JSON 스키마를 사용하고싶을 수 있다. 이를 위해서, 예외 필터(exception filter)는 위의 예시를 든 경우들을 위한 목적으로 디자인 되었다.</p>
+<div class="gatsby-highlight" data-language="ts"><pre class="language-ts"><code class="language-ts"><span class="token comment">// http-exception.filter.ts</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+  ExceptionFilter<span class="token punctuation">,</span>
+  Catch<span class="token punctuation">,</span>
+  ArgumentsHost<span class="token punctuation">,</span>
+  HttpException
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/common'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Request<span class="token punctuation">,</span> Resposne <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'express'</span><span class="token punctuation">;</span>
+
+@<span class="token function">Catch</span><span class="token punctuation">(</span>HttpException<span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HttpExceptionFilter</span> <span class="token keyword">implements</span> <span class="token class-name">ExceptionFilter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">catch</span><span class="token punctuation">(</span>exception<span class="token operator">:</span> HttpException<span class="token punctuation">,</span> host<span class="token operator">:</span> ArgumentsHost<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> ctx <span class="token operator">=</span> host<span class="token punctuation">.</span><span class="token function">switchToHttp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> response <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">getResponse</span><span class="token generic class-name"><span class="token operator">&lt;</span>Response<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> request <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">getRequest</span><span class="token generic class-name"><span class="token operator">&lt;</span>Request<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> status <span class="token operator">=</span> exception<span class="token punctuation">.</span><span class="token function">getStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    response<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      statusCode<span class="token operator">:</span> status<span class="token punctuation">,</span>
+      timestamp<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toISOString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      path<span class="token operator">:</span> request<span class="token punctuation">.</span>url
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>HttpException 클래스의 인스턴스인 예외를 캐치하고 이에 대한 사용자 정의 응답 로직을 구현하는 것을 담당하는 예외 필터를 만들기 위해서는 기본 플랫폼 요청 및 응답 객체에 접근 해야 한다.</p>
+<ul>
+<li>모든 예외 필터들은 <strong>ExceptionFilter<T></strong> 인터페이스의 제네릭으로 구현되어야한다.</li>
+<li>위를 위해서 catch(exception: T, host: ArgumentsHost) 메소드를 구현해야한다.</li>
+<li>T는 예외의 타입을 나타낸다.</li>
+</ul>
+<p><strong>@Catch(HttpException)</strong> 데코레이터는 Nest 프레임워크에게 구현하고자 하는 예외 필터가 HttpException 유형의 예외를 찾고 있다는 것을 알려, 예외 필터에 필요한 메타데이터를 바인딩한다.</p>
+<p>@Catch() 데코레이터는 단일 매개변수 또는 쉼표로 구분된 목록을 사용할 수 있다. 이를 통해 여러 유형의 예외에 대한 필터를 동시에 설정할 수 있다. ex) @Catch(Exception1, Exception2)</p>
+<h3 id="arguments-host" style="position:relative;"><a href="#arguments-host" aria-label="arguments host permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arguments host</h3>
+<ul>
+<li>catch() 메소드의 파라미터들에 대해서 알아본다.</li>
+<li>exception 매개변수는 현재 통과되어지고 있는 예외 객체이다.</li>
+<li>host 매개변수는 ArgumentsHost 객체이다.</li>
+<li>ArgumentsHost는 강력한 유틸리티 객체이다. (더 자세한 내용은 execution context chapter 에서 알아본다.)</li>
+</ul>
+<h3 id="binding-filters" style="position:relative;"><a href="#binding-filters" aria-label="binding filters permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Binding filters</h3>
+<p>Controller에 예외 필터를 적용하기 위해서는 @nestjs/common 패키지의 <strong>@UseFilters()</strong> 데코레이터를 사용하면 된다.</p>
+<p>@Catch() 데코레이터와 유사하게, @UseFilters() 데코레이터는 하나의 필터 인스턴스를 인자로 취한다.</p>
+<p>아래의 코드에서는 HttpExceptionFilter의 인스턴스를 생성해서 전달하였다.</p>
+<div class="gatsby-highlight" data-language="ts"><pre class="language-ts"><code class="language-ts"><span class="token comment">// cats.controller.ts</span>
+
+@<span class="token function">Post</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+@<span class="token function">UseFilters</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HttpExceptionFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token function">create</span><span class="token punctuation">(</span>@<span class="token function">Body</span><span class="token punctuation">(</span><span class="token punctuation">)</span> createCatDto<span class="token operator">:</span> CreateCatDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ForbiddenException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>또한, 인스턴스 대신에 클래스를 전달함으로써 의존성 주입을 활성화 할 수 있다.</p>
+<div class="gatsby-highlight" data-language="ts"><pre class="language-ts"><code class="language-ts"><span class="token comment">// cats.controller.ts</span>
+
+@<span class="token function">Post</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+@<span class="token function">UseFilters</span><span class="token punctuation">(</span>HttpExceptionFilter<span class="token punctuation">)</span> <span class="token comment">// 클래스를 전달</span>
+<span class="token keyword">async</span> <span class="token function">create</span><span class="token punctuation">(</span>@<span class="token function">Body</span><span class="token punctuation">(</span><span class="token punctuation">)</span> createCatDto<span class="token operator">:</span> CreateCatDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ForbiddenException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>가능하다면 인스턴스 대신에 클래스를 전달함으로써 필터를 적용하는 방식을 사용하는 것이 좋다. 왜냐하면, Nest에서 전체 모듈에서 <strong>동일한 클래스에 대해서 하나의 인스턴스만 사용하므로</strong> <strong>메모리 사용을 줄일 수 있다</strong>.</p>
+<p>위의 예제에서, HttpExceptionFilter는 오직 method-scoped로써 create() 라우트 핸들러에만 적용되었다.</p>
+<p>예외필터(Exception filters)들은 다른 레벨의 범위(scope)를 가질 수 있다.</p>
+<ul>
+<li>method-scoped</li>
+<li>controller-scoped</li>
+<li>global-scoped</li>
+</ul>
+<p>ex) controller scoped</p>
+<p>아래의 코드는 CatsController 내부의 모든 라우트 핸들러에 HttpExceptionFilter를 적용하는 코드이다.</p>
+<div class="gatsby-highlight" data-language="ts"><pre class="language-ts"><code class="language-ts"><span class="token comment">// cats.controller.ts</span>
+
+@<span class="token function">UseFillters</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HttpExceptionFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CatsController</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></code></pre></div>
+<p>ex) global-scoped</p>
+<ul>
+<li>useGlobalFilters() 메서드는 게이트웨이 혹은 하이브리드 애플리케이션에 대한 필터를 설정하지 않는다.</li>
+<li>global-scoped filters는 모든 컨트롤러와 모든 라우트 핸들러 전체 애플리케이션에서 사용된다.</li>
+</ul>
+<div class="gatsby-highlight" data-language="ts"><pre class="language-ts"><code class="language-ts"><span class="token comment">// main.ts</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">await</span> NestFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>AppModule<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  app<span class="token punctuation">.</span><span class="token function">useGlobalFilters</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HttpExceptionFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">boostrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<ul>
+<li>의존성 주입의 관점에서, 어떠한 모듈 외부에서 등록한 글로벌 필터는 어떠한 모듈의 컨텍스트 외부에서 수행되기 때문에 의존성을 주입할 수 없다.</li>
+<li>이러한 의존성 주입 문제를 해결하기 위해 다음과 같은 방법을 사용하여 어떤 모듈에서든 직접 전역 범위 필터를 등록할 수 있다.</li>
+</ul>
+<div class="gatsby-highlight" data-language="ts"><pre class="language-ts"><code class="language-ts"><span class="token comment">// app.module.ts</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Module <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/common'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">APP_FILTER</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/core'</span><span class="token punctuation">;</span>
+
+@<span class="token function">Module</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  providers<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      provide<span class="token operator">:</span> <span class="token constant">APP_FILTER</span><span class="token punctuation">,</span>
+      useClass<span class="token operator">:</span> HttpExceptionFilter
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppModule</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></code></pre></div></div></div></div><div class="Post-module--post__footer--3WzWU"><div><p class="Meta-module--meta__date--29eD7">Published <!-- -->11 Dec 2020</p></div><div class="Tags-module--tags--1L_ct"><ul class="Tags-module--tags__list--91FqN"><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tag/nest-js/">NestJS</a></li><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tag/framework/">Framework</a></li><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tag/exception-filters/">exception-filters</a></li></ul></div><div class="Author-module--author--2Yefr"><p>Information + knowledge = 🔥<a class="Author-module--author__bio-twitter--n-O9n" href="https://www.twitter.com/#" rel="noopener noreferrer" target="_blank"><strong>mingi pak</strong> on Twitter</a></p></div></div><div class="Post-module--post__comments--25y6I"></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/nestjs-exception-filters";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-ffdf9f8f891933d5c936.js"],"app":["/app-7c430e775da860993f91.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-78167c4fde7507dfeaa5.js"],"component---src-templates-categories-list-template-js":["/component---src-templates-categories-list-template-js-c284e1532732377ecf23.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-7d30c572cfd5600c2141.js"],"component---src-templates-index-template-js":["/component---src-templates-index-template-js-bb2148d7459bb65b64a4.js"],"component---src-templates-not-found-template-js":["/component---src-templates-not-found-template-js-ac3827766eca47f69dbc.js"],"component---src-templates-page-template-js":["/component---src-templates-page-template-js-753825f331ca7fca30ec.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-60955cc60eff050f552a.js"],"component---src-templates-tag-template-js":["/component---src-templates-tag-template-js-1017cd2fbd4fa190eba9.js"],"component---src-templates-tags-list-template-js":["/component---src-templates-tags-list-template-js-10861f89ff7369335573.js"]};/*]]>*/</script><script src="/polyfill-ffdf9f8f891933d5c936.js" nomodule=""></script><script src="/component---src-templates-post-template-js-60955cc60eff050f552a.js" async=""></script><script src="/643651a62fb35a9bb4f20061cb1f214a352d7976-921c08de707572e0b904.js" async=""></script><script src="/cd95ea5cbd2c605f26db819f07999610c9ff4310-c0c9a4570aa7372f03a5.js" async=""></script><script src="/styles-083a06cb5740baaf347d.js" async=""></script><script src="/app-7c430e775da860993f91.js" async=""></script><script src="/532a2f07-0ad879e15da7c2514814.js" async=""></script><script src="/framework-acc06bf067a5be254929.js" async=""></script><script src="/webpack-runtime-c28255939d9c8a615cf8.js" async=""></script></body></html>
