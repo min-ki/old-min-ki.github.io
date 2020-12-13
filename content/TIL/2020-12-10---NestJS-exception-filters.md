@@ -279,3 +279,84 @@ import { APP_FILTER } from '@nestjs/core';
 })
 export class AppModule {}
 ```
+
+- 필터에 대한 의존성 주입을 위해 위와 같은 접근법을 사용할 때, 이 구조가 사용 되는 모듈에 관계 없이 전역이라는 것에 유의해야한다.
+- 위와 같은 방식으로 많은 필터들을 추가할 수 있다. 간단하게 providers의 배열에 추가하면 된다.
+
+### Catch everything
+
+예외의 유형에 관계없이 모든 핸들링되지않는 예외들을 캐치하기 위해서는 @Catch() 데코레이터의 파라미터 리스트를 비워두면 된다. ( @Catch() 와 같이 )
+
+```ts
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus
+} from '@nestjs/common';
+
+// 비워둠으로써 모든 예외를 캐치한다.
+@Catch()
+export class AllExceptionsFilter implements ExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
+    const request = ctx.getRequest();
+
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
+
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url
+    });
+  }
+}
+```
+
+### Inheritance
+
+우리는 애플리케이션의 요구사항을 충족시키기 위해서, 완전히 커스터마이징된 예외 필터들을 만들려고 할 것이다. 그러나, Nest에서는 기본으로 내장된 글로벌 예외 필터(global exception filter)를 간단히 확장하여 특정 요인에 따라 일부 동작만을 재정의 하려는 경우가 있을 수 있다. 예외 처리를 기본 필터에게 위임하기 위해서, 우리는 BaseExceptionFilter를 확장하고 상속된 catch() 메소드를 호출하면된다.
+
+```ts
+// all-exceptions.filter.ts
+
+import { Catch, ArgumentsHost } from '@nestjs/common';
+import { BaseExceptionFilter } from '@nestjs/core';
+
+@Catch()
+export class AllExceptionsFilter extends BaseExceptionFilter {
+  catch(exceiption: unkown, host: ArgumentsHost) {
+    super.catch(exception, host);
+  }
+}
+```
+
+BaseExcpetionFilter에서 확장한 Method-scoped와 Controller-scoped 필터들은 new를 사용해서 초기화되지않는다. 대신에, Nest 프레임워크가 자동적으로 그것들을 해준다.
+
+글로벌 필터는 두 가지 방식을 통해서 기본 필터를 확장할 수 있다.
+
+1. 사용자 지정 글로벌 필터를 인스턴스화 할 때 HttpServer 참조를 주입하는 방법
+
+   ```ts
+   async function bootstrap() {
+     const app = await NestFactory.create(AppModule);
+
+     const { httpAdapter } = app.get(HttpAdapterHost);
+     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+
+     await app.listen(3000);
+   }
+
+   boostrap();
+   ```
+
+2. APP_FILTER token을 사용하는 방법
+
+### Reference
+
+[Documentation | NestJS - A progressive Node.js framework](https://docs.nestjs.com/exception-filters#binding-filters)
