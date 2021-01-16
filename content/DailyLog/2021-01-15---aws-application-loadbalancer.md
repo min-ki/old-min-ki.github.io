@@ -42,4 +42,6 @@ ALB의 알고리즘은 두 가지 유형이 존재합니다.
 
 ### Reference
 
-- https://medium.com/harrythegreat/aws-%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%8B%B1-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0-9fd0955f859e
+- [AWS Official Docs- What is an Application Load Balancer?
+  ](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
+- [해리의 유목코딩 - [AWS] 로드밸런싱 알아보기](https://medium.com/harrythegreat/aws-%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%8B%B1-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0-9fd0955f859e)
