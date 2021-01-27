@@ -68,18 +68,18 @@
 <p>ACID란 데이터베이스 트랜잭션이 안전하게 수행된다는 것을 보장하기 위한 성질을 가리키는 약어입니다.
 아래의 네가지 용어는 데이터베이스의 <strong>트랜잭션이 신뢰성있게 수행될 수 있도록 보장하는 것</strong>이라고 보면됩니다.</p>
 <ul>
-<li><em>A (Atomicity)</em></li>
-<li><em>C (Consistency)</em></li>
-<li><em>I (Isolation)</em></li>
-<li><em>D (Durability)</em></li>
+<li><em>A (Atomicity)</em> - 원자성</li>
+<li><em>C (Consistency)</em> - 일관성</li>
+<li><em>I (Isolation)</em> -격리성 OR 독립성</li>
+<li><em>D (Durability)</em> 내구성</li>
 </ul>
-<p>ACID는 특히 데이터베이스가 트랜잭션 처리중에 발생한 어떤 실패에 대해서 어떻게 처리할지에 대해서 다루고 있습니다.
-ACID를 잘 따르는 DBMS는 데이터베이스 상에서 어떠한 트랜잭션에 실패에도 데이터가 정확하고 일관성있게 유지될 수 있도록 보장합니다.</p>
+<p>ACID는 특히 데이터베이스가 트랜잭션 처리중에 발생한 어떤 실패에 대해서 어떻게 처리할지에 대해서 다루고 있습니다.</p>
+<p>ACID를 잘 따르는 DBMS는 데이터베이스 상에서 어떠한 트랜잭션에 실패에도 데이터가 정확하고 일관성있게 유지될 수 있도록 보장합니다.</p>
 <hr>
 <h2 id="acid의-정의" style="position:relative;"><a href="#acid%EC%9D%98-%EC%A0%95%EC%9D%98" aria-label="acid의 정의 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ACID의 정의</h2>
 <p><strong>원자성 (A - Atomicity)</strong></p>
 <blockquote>
-<p>원자성은 전부 성공 아니면 모두 실패입니다! 🔥</p>
+<p>🔥 원자성은 전부 성공 아니면 모두 실패입니다! 🔥</p>
 </blockquote>
 <p>원자성이란, 트랜잭션 내의 작업이 전체가 한번에 이루어지거나 전혀 작업이 수행되지 않는다는 뜻입니다.</p>
 <p>즉, 쉽게 말해 트랜잭션으로 묶은 일련의 작업들 중 한개라도 실패한다면 전체가 실패하고, 동일 트랜잭션 내의 작업 전체가 성공을 해야만 성공으로 보는 일련의 작업들을 원자처럼 보는 성질입니다.</p>
