@@ -1,6 +1,6 @@
 ---
 title: 'Javascript Symbol 정리'
-date: '2021-01-15T22:00:00.000Z'
+date: '2021-01-16T22:00:00.000Z'
 template: 'post'
 draft: false
 slug: 'javascript-symbol'
@@ -51,7 +51,3 @@ let sym = new Symbol() // new 연산자를 사용하면 타입에러가 발생 (
 
 - https://ko.javascript.info/symbol
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
-
-```
-
-```

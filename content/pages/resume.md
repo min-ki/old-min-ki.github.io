@@ -1,18 +1,17 @@
 ---
-title: "Resume"
-template: "page"
-socialImage: "static/media/image-4.jpg"
+title: 'Resume'
+template: 'page'
+socialImage: 'static/Profile.jpg'
 ---
 
-안녕하세요. 저는 헬스케어 스타트업에서 풀스택 개발자로 근무하고 있습니다.
+### Intro.
 
-### 경력
+안녕하세요. 모든 사람들이 **편하게 사용할 수 있는 견고한 서비스를 만들어가고 싶은 백엔드 개발자** 박민기입니다.
 
-- 2018.12 ~ 2019.12 - 원광대학교 의료융합연구센터 플랫폼 개발자
-- 2020.02 ~ 현재 - Tesser 개발자
+### Work Experience.
 
-### 프로젝트
+**Tesser - Backend Developer** (2020.02 - 현재)
+AI 기반 의료인 네트워크 서비스 및 헬스케어 데이터 가공 플랫폼을 제공하는 스타트업으로 백엔드 및 인프라를 담당하였습니다.
 
-- 2018.12 ~ 2019.12 - 원광대학교 Radiology Common Data Model 플랫폼 개발
-- 2020.03 ~ 2020.04 - Tesser Covid 19 Dashboard Backend 개발
-- 2020.04 ~ 현재 - Tesser 개발 중..
+**원광대학교 의료융합연구센터** (2018.12 - 2019.12)
+의료영상 데이터를 표준화하기 위한 웹 기반의 관리 시스템으로 의료 영상 뷰어 개발과 백엔드 및 인프라를 전담하였습니다.
