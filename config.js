@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   url: 'https://min-ki.github.io',
@@ -13,7 +13,7 @@ module.exports = {
   menu: [
     {
       label: 'Articles',
-      path: '/'
+      path: '/',
     },
     // {
     //   label: "About me",
@@ -25,8 +25,8 @@ module.exports = {
     // },
     {
       label: 'Resume',
-      path: '/pages/resume'
-    }
+      path: '/pages/resume',
+    },
   ],
   author: {
     name: 'mingi pak',
@@ -48,7 +48,7 @@ module.exports = {
       weibo: '',
       codepen: '',
       youtube: '',
-      soundcloud: ''
-    }
-  }
-};
+      soundcloud: '',
+    },
+  },
+}

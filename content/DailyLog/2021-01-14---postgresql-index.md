@@ -4,7 +4,7 @@ date: '2021-01-14T22:00:00.000Z'
 template: 'post'
 draft: false
 slug: 'postgresql-index'
-category: 'DailyLog'
+category: 'Daily-Log'
 tags:
   - 'PostgreSQL'
   - 'Index'

@@ -4,7 +4,7 @@ date: '2021-01-15T22:00:00.000Z'
 template: 'post'
 draft: false
 slug: 'aws-application-load-balancer'
-category: 'DailyLog'
+category: 'Daily-Log'
 tags:
   - 'AWS'
   - 'LoadBalancer'

@@ -4,7 +4,7 @@ date: '2021-01-16T22:00:00.000Z'
 template: 'post'
 draft: false
 slug: 'javascript-symbol'
-category: 'DailyLog'
+category: 'Daily-Log'
 tags:
   - 'JS'
   - 'Symbol'
