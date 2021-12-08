@@ -115,10 +115,10 @@ cursor_obj<span class="token punctuation">.</span>execute<span class="token punc
 conn<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
 <p>프록시는 또한 garbage collected 될때 풀에 포함된 DB API 연결을 반환하지만, 파이썬에서는 즉시 발생한다고 단정할 수 없다. 이러한 방식은 권장되지 않으며 특히 비동기식 DB API 드라이버에서는 지원하지 않는다.</p>
 <h3 id="reset-on-return" style="position:relative;"><a href="#reset-on-return" aria-label="reset on return permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reset On Return</h3>
-<p>SQLAlchemy의 커넥션 풀은 “reset on return” 이라 불리는 기능을 포함한다. 이름에서 유추가 가능하듯이 반환할때 리셋을 하는 기능이다.</p>
-<p>이 기능은 커넥션이 풀로 반환될때 DBAPI 커넥션의 <code class="language-text">rollback()</code> 메서드를 호출하는 기능이다. 롤백을 통해서 기존 커넥션에 대한 트랜잭션이 제거되어 커넥션을 재사용 시 기존 상태가 남아 있지 않아있고, 테이블 및 행에 걸린 락이 해제되고 격리된 데이터 스냅샷이 제거된다.</p>
-<p>또한 롤백은 커넥션이 풀로 반환되기 직전에 롤백이 호출되었음을 커넥션이 보장할 수 있는 경우를 제외하고는 대부분 Engine Object를 사용할 때도 이 롤백이 발생한다.
-대부분의 DBAPI 들에서 <code class="language-text">rollback()</code> 메서드를 호출하는 것은 매우 값싼 동작이고 만약 DBAPI가 벌써 트랜잭션을 완료했다면, 롤백은 수행되지않는다. 하지만, 커넥션에 상태가 없는 경우에도 <code class="language-text">rollback()</code> 과 관련하여 성능 문제가 발생하는 DBAPI의 경우에는 풀의 “reset<em>on</em>return”을 사용하여 이 동작을 비활성화 시킬 수 있다.</p>
+<p>SQLAlchemy의 커넥션 풀은 “reset on return” 이라 불리는 기능을 포함합니다. 이름에서 유추가 가능하듯이 커넥션을 반환할때 리셋을 하는 기능입니다.</p>
+<p>이 기능은 커넥션이 풀로 반환될때 DBAPI 커넥션의 <code class="language-text">rollback()</code> 메서드를 호출합니다. 롤백을 통해서 기존 커넥션에 대한 트랜잭션이 제거되어 커넥션을 재사용 시 기존 상태가 남아 있지 않아있고, 테이블 및 행에 걸린 락이 해제되고 격리된 데이터 스냅샷이 제거되어집니다.</p>
+<p>또한 롤백은 커넥션이 풀로 반환되기 직전에 롤백이 호출되었음을 커넥션이 보장할 수 있는 경우를 제외하고는 대부분 Engine Object를 사용할 때도 이 롤백이 발생합니다.
+대부분의 DBAPI들에서 <code class="language-text">rollback()</code> 메서드를 호출하는 것은 매우 값싼 동작이고 만약 DBAPI가 벌써 트랜잭션을 완료했다면, 롤백은 수행되지않습니다. 하지만, 커넥션에 상태가 없는 경우에도 <code class="language-text">rollback()</code> 과 관련하여 성능 문제가 발생하는 DBAPI의 경우에는 풀의 <strong>Reset On Return</strong>기능을 비활성화 할 수 있습니다.</p>
 <p>reset<em>on</em>return은 아래와 같은 조건에서는 실행을 중지해도 안전하다.</p>
 <ul>
 <li>MyISAM 엔진을 사용하는 MySQL을 사용하는 것과 같이 데이터베이스가 트랜잭션을 전혀 지원하지 않거나 DBAPI가 자동 커밋 모드에서만 사용되는 경우</li>
