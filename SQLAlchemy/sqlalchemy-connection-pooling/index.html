@@ -119,10 +119,10 @@ conn<span class="token punctuation">.</span>close<span class="token punctuation"
 <p>이 기능은 커넥션이 풀로 반환될때 DBAPI 커넥션의 <code class="language-text">rollback()</code> 메서드를 호출합니다. 롤백을 통해서 기존 커넥션에 대한 트랜잭션이 제거되어 커넥션을 재사용 시 기존 상태가 남아 있지 않아있고, 테이블 및 행에 걸린 락이 해제되고 격리된 데이터 스냅샷이 제거되어집니다.</p>
 <p>또한 롤백은 커넥션이 풀로 반환되기 직전에 롤백이 호출되었음을 커넥션이 보장할 수 있는 경우를 제외하고는 대부분 Engine Object를 사용할 때도 이 롤백이 발생합니다.
 대부분의 DBAPI들에서 <code class="language-text">rollback()</code> 메서드를 호출하는 것은 매우 값싼 동작이고 만약 DBAPI가 벌써 트랜잭션을 완료했다면, 롤백은 수행되지않습니다. 하지만, 커넥션에 상태가 없는 경우에도 <code class="language-text">rollback()</code> 과 관련하여 성능 문제가 발생하는 DBAPI의 경우에는 풀의 <strong>Reset On Return</strong>기능을 비활성화 할 수 있습니다.</p>
-<p>reset<em>on</em>return은 아래와 같은 조건에서는 실행을 중지해도 안전하다.</p>
+<p>reset<em>on</em>return은 아래와 같은 조건에서는 실행을 중지해도 안전하다고 공식문서에 명시되어있습니다.</p>
 <ul>
-<li>MyISAM 엔진을 사용하는 MySQL을 사용하는 것과 같이 데이터베이스가 트랜잭션을 전혀 지원하지 않거나 DBAPI가 자동 커밋 모드에서만 사용되는 경우</li>
-<li>NullPool을 사용하는 것과 같이 커넥션을 유지하지 않는 경우</li>
+<li>MyISAM 엔진을 사용하는 MySQL을 사용하는 것과 같이 <strong>데이터베이스가 트랜잭션을 전혀 지원하지 않거나</strong> DBAPI가 <strong>자동 커밋 모드</strong>에서만 사용되는 경우</li>
+<li>NullPool을 사용하는 것과 같이 <strong>커넥션을 유지하지 않는 경우</strong></li>
 <li>Application이 컨텍스트 관리자 또는 try/finally 스타일을 사용해 명시적으로 모든 연결 개체를 닫는 경우</li>
 <li>커넥션이 명시적으로 종료되기 전까지는 가비지 컬렉션이 허용되지 않는 경우</li>
 <li>DBAPI Connection 자체가 사용되지 않거나, Application이 커넥션 풀에 반환되기 전에 커넥션에 대해 <code class="language-text">rollback()</code> 이 실행되는 것을 보장하는 경우</li>
@@ -130,8 +130,8 @@ conn<span class="token punctuation">.</span>close<span class="token punctuation"
 <p>“Reset on Return” 단계는 sqlalchemy.pool logger와 함께 <code class="language-text">logging.DEBUG</code> 로그 레벨을 사용해서 로그를 확인하거나 create<em>engine()에서 `echo</em>pool=‘debug’` 를 설정하면 된다.</p>
 <h3 id="pool-events" style="position:relative;"><a href="#pool-events" aria-label="pool events permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pool Events</h3>
 <p>SQLAlchemy는 커넥션 풀에서 발생하는 이벤트를 추적하기 위한 인터페이스를 제공합니다.</p>
-<p><strong>checkin</strong>
-체크인 이벤트는 커넥션 풀로부터 커넥션을 반환할때 호출되어집니다. 이 이벤트는 두개의 인자를 제공합니다.</p>
+<h4 id="checkin" style="position:relative;"><a href="#checkin" aria-label="checkin permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>checkin</h4>
+<p>체크인 이벤트는 커넥션 풀로부터 커넥션을 반환할때 호출되어집니다. 이 이벤트는 두개의 인자를 제공합니다.</p>
 <ul>
 <li>dbapi_connection: DBAPI Connection</li>
 <li>connection<em>record: DBAPI Connection을 관리하는 \</em>ConnectionRecord</li>
@@ -141,8 +141,8 @@ conn<span class="token punctuation">.</span>close<span class="token punctuation"
 <span class="token decorator annotation punctuation">@event<span class="token punctuation">.</span>listens_for</span><span class="token punctuation">(</span>EngineOrPool<span class="token punctuation">,</span> <span class="token string">'checkin'</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">receive_checkin</span><span class="token punctuation">(</span>dbapi_connection<span class="token punctuation">,</span> connection_record<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
-<p><strong>checkout</strong>
-체크아웃 이벤트는 커넥션 풀로부터 커넥션을 획득할 때 호출되어진다. 이 이벤트는 다음 세개의 인자를 제공한다.</p>
+<h4 id="checkout" style="position:relative;"><a href="#checkout" aria-label="checkout permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>checkout</h4>
+<p>체크아웃 이벤트는 커넥션 풀로부터 커넥션을 획득할 때 호출되어진다. 이 이벤트는 다음 세개의 인자를 제공한다.</p>
 <ul>
 <li>dbapi_connection: DBAPI Connection</li>
 <li>connection<em>record: DBAPI Connection을 관리하는 \</em>ConnectionRecord</li>
@@ -155,7 +155,7 @@ conn<span class="token punctuation">.</span>close<span class="token punctuation"
     <span class="token string">"listen for the 'checkin' event"</span>
 
     <span class="token comment"># ... (event handling logic) ...</span></code></pre></div>
-<p><strong>close</strong></p>
+<h4 id="close" style="position:relative;"><a href="#close" aria-label="close permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>close</h4>
 <p>커넥션 풀과 관련된 종료 이벤트로 DBAPI 커넥션이 종료되어 풀에 반환되어질때 호출됩니다. 이 이벤트는 두개의 인자를 제공합니다.
 커넥션의 종료는 종종 이미 커넥션이 종료되었기 때문에 실패할 수 있습니다. 그래서, 만약 종료에 대한 동작이 실패한다면 해당 커넥션은 버려집니다.</p>
 <ul>
@@ -167,14 +167,14 @@ conn<span class="token punctuation">.</span>close<span class="token punctuation"
 <span class="token decorator annotation punctuation">@event<span class="token punctuation">.</span>listens_for</span><span class="token punctuation">(</span>EngineOrPool<span class="token punctuation">,</span> <span class="token string">'close'</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">receive_close</span><span class="token punctuation">(</span>dbapi_connection<span class="token punctuation">,</span> connection_record<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
-<p><strong>close detached</strong>
-위의 종료 이벤트는 DBAPI Connection의 종료가 풀로 반환되는 경우를 추적합니다. 하지만, 풀에 반환되는 것이 아닌 풀에서 분리되어 종료되는 커넥션을 추적하기위해서는 <code class="language-text">close_detached</code> 를 사용해야합니다.</p>
+<h4 id="close-detached" style="position:relative;"><a href="#close-detached" aria-label="close detached permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>close detached</h4>
+<p>위의 종료 이벤트는 DBAPI Connection의 종료가 풀로 반환되는 경우를 추적합니다. 하지만, 풀에 반환되는 것이 아닌 풀에서 분리되어 종료되는 커넥션을 추적하기위해서는 <code class="language-text">close_detached</code> 를 사용해야합니다.</p>
 <div class="gatsby-highlight" data-language="python"><pre class="language-python"><code class="language-python"><span class="token keyword">from</span> sqlalchemy <span class="token keyword">import</span> event
 
 <span class="token decorator annotation punctuation">@event<span class="token punctuation">.</span>listens_for</span><span class="token punctuation">(</span>EngineOrPool<span class="token punctuation">,</span> <span class="token string">'close_detached'</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">receive_close_detached</span><span class="token punctuation">(</span>dbapi_connection<span class="token punctuation">,</span> connection_record<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
-<p><strong>connect</strong></p>
+<h4 id="connect" style="position:relative;"><a href="#connect" aria-label="connect permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>connect</h4>
 <p>DBAPI 커넥션이 Pool을 위해 만들어지는 순간 호출되는 이벤트 리스너입니다.
 이 이벤트를 통해서 DBAPI 모듈 수준의 .connect() 메서드가 사용된 지점을 캡처하여 새로운 DBAPI 연결을 생성할 수 있습니다.</p>
 <div class="gatsby-highlight" data-language="python"><pre class="language-python"><code class="language-python"><span class="token keyword">from</span> sqlalchemy <span class="token keyword">import</span> event
@@ -182,7 +182,7 @@ conn<span class="token punctuation">.</span>close<span class="token punctuation"
 <span class="token decorator annotation punctuation">@event<span class="token punctuation">.</span>listens_for</span><span class="token punctuation">(</span>EngineOrPool<span class="token punctuation">,</span> <span class="token string">'connect'</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">receive_connect</span><span class="token punctuation">(</span>dbapi_connection<span class="token punctuation">,</span> connection_record<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre></div>
-<p><strong>detach</strong></p>
+<h4 id="detach" style="position:relative;"><a href="#detach" aria-label="detach permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>detach</h4>
 <p>DBAPI 연결이 커넥션 풀로부터 분리되었을때 호출되는 이벤트 리스너 입니다. 이 이벤트는 연결이 커넥션 풀로부터 분리되어지고 난 후에 발생합니다. 그러므로 인자로 주어진 connection<em>record (내부적으로 커넥션을 유지하기위해 참조되어지고 있는 객체)는 더이상 주어진 커넥션(dbapi</em>connection)과는 무관합니다.</p>
 <div class="gatsby-highlight" data-language="python"><pre class="language-python"><code class="language-python"><span class="token keyword">from</span> sqlalchemy <span class="token keyword">import</span> event
 
