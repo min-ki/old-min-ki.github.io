@@ -37,6 +37,7 @@ const CategoryBlock = styled(Link)`
 
 const CategoryName = styled.span`
   cursor: pointer;
+  margin-right: 2px;
 `
 
 const CategoryCount = styled.span`
