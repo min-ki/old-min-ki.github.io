@@ -6,7 +6,7 @@ module.exports = {
   title: 'MINGI DEVLOG',
   subtitle: 'Information + knowledge = 🔥',
   copyright: '© All rights reserved.',
-  disqusShortname: '',
+  disqusShortname: 'min-ki-github-io-1',
   postsPerPage: 4,
   googleAnalyticsId: 'G-CH2EBQ3S0E',
   useKatex: false,
