@@ -98,3 +98,4 @@ ACID라는 것은 데이터베이스에 문제가 발생하였을 경우(하나�
 - https://ko.wikipedia.org/wiki/ACID
 - https://database.guide/what-is-acid-in-databases
 - https://www.geeksforgeeks.org/acid-properties-in-dbms/
+- https://www.scaler.com/topics/dbms/acid-properties-in-dbms/
